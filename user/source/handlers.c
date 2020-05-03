@@ -8,5 +8,5 @@
 #include <main.h>
 
 void SysTick_Handler(void) {
-	ticks_delay++;
+	ui32ticksDelay++;
 }

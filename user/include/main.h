@@ -16,7 +16,7 @@
 #include <stm32f4_discovery.h>
 #include <stm32f4_discovery_debug.h>
 
-volatile uint32_t ticks_delay;
+volatile uint32_t ui32ticksDelay;
 
 
 #endif /* USER_INCLUDE_MAIN_H_ */
