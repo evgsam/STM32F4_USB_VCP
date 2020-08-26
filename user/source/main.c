@@ -16,11 +16,11 @@ int main(void) {
 
 	while (1) {
 		STM_EVAL_LEDToggle(LED3);
-		delay(800);
+		delay(100);
 		STM_EVAL_LEDToggle(LED5);
-		delay(300);
+		delay(100);
 		STM_EVAL_LEDToggle(LED6);
-		delay(200);
+		delay(100);
 		STM_EVAL_LEDToggle(LED4);
 		delay(100);
 	}
