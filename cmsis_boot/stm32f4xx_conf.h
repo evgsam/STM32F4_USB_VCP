@@ -1,23 +1,23 @@
 /**
   ******************************************************************************
-  * @file    Project/STM32F4xx_StdPeriph_Templates/stm32f4xx_conf.h  
+  * @file    stm32f4xx_conf.h  
   * @author  MCD Application Team
-  * @version V1.0.0
-  * @date    30-September-2011
+  * @version V1.2.1
+  * @date    06-November-2015
   * @brief   Library configuration file.
   ******************************************************************************
   * @attention
   *
-  * THE PRESENT FIRMWARE WHICH IS FOR GUIDANCE ONLY AIMS AT PROVIDING CUSTOMERS
-  * WITH CODING INFORMATION REGARDING THEIR PRODUCTS IN ORDER FOR THEM TO SAVE
-  * TIME. AS A RESULT, STMICROELECTRONICS SHALL NOT BE HELD LIABLE FOR ANY
-  * DIRECT, INDIRECT OR CONSEQUENTIAL DAMAGES WITH RESPECT TO ANY CLAIMS ARISING
-  * FROM THE CONTENT OF SUCH FIRMWARE AND/OR THE USE MADE BY CUSTOMERS OF THE
-  * CODING INFORMATION CONTAINED HEREIN IN CONNECTION WITH THEIR PRODUCTS.
+  * <h2><center>&copy; Copyright (c) 2015 STMicroelectronics.
+  * All rights reserved.</center></h2>
   *
-  * <h2><center>&copy; COPYRIGHT 2011 STMicroelectronics</center></h2>
+  * This software component is licensed by ST under Ultimate Liberty license
+  * SLA0044, the "License"; You may not use this file except in compliance with
+  * the License. You may obtain a copy of the License at:
+  *                      <http://www.st.com/SLA0044>
+  *
   ******************************************************************************
-  */ 
+  */  
 
 /* Define to prevent recursive inclusion -------------------------------------*/
 #ifndef __STM32F4xx_CONF_H
@@ -36,6 +36,7 @@
 #include "stm32f4xx_exti.h"
 #include "stm32f4xx_flash.h"
 #include "stm32f4xx_fsmc.h"
+#include "stm32f4xx_fmc.h"
 #include "stm32f4xx_hash.h"
 #include "stm32f4xx_gpio.h"
 #include "stm32f4xx_i2c.h"
@@ -50,9 +51,9 @@
 #include "stm32f4xx_tim.h"
 #include "stm32f4xx_usart.h"
 #include "stm32f4xx_wwdg.h"
-#include "misc.h"
-
-/* High level functions for NVIC and SysTick (add-on to CMSIS functions) */
+#include "misc.h" /* High level functions for NVIC and SysTick (add-on to CMSIS functions) */
+#include "stm32f4xx_dma2d.h"
+#include "stm32f4xx_ltdc.h"
 
 /* Exported types ------------------------------------------------------------*/
 /* Exported constants --------------------------------------------------------*/
@@ -65,7 +66,7 @@
 
 /* Uncomment the line below to expanse the "assert_param" macro in the 
    Standard Peripheral Library drivers code */
-// #define USE_FULL_ASSERT    1 */
+/* #define USE_FULL_ASSERT    1 */
 
 /* Exported macro ------------------------------------------------------------*/
 #ifdef  USE_FULL_ASSERT
@@ -87,4 +88,4 @@
 
 #endif /* __STM32F4xx_CONF_H */
 
-/******************* (C) COPYRIGHT 2011 STMicroelectronics *****END OF FILE****/
+/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
