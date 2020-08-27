@@ -16,142 +16,106 @@
   * FROM THE CONTENT OF SUCH FIRMWARE AND/OR THE USE MADE BY CUSTOMERS OF THE
   * CODING INFORMATION CONTAINED HEREIN IN CONNECTION WITH THEIR PRODUCTS.
   *
-  * <h2><center>&copy; Portions COPYRIGHT 2011 STMicroelectronics</center></h2>
+  * <h2><center>&copy; COPYRIGHT 2011 STMicroelectronics</center></h2>
   ******************************************************************************
-  */ 
-/**
+
+  PATCHED BY CLIVE SOURCER32@GMAIL.COM TO USART2
+
   ******************************************************************************
-  * <h2><center>&copy; Portions COPYRIGHT 2012 Embest Tech. Co., Ltd.</center></h2>
-  * @file    stm32f4_discovery.c
-  * @author  CMP Team
-  * @version V1.0.0
-  * @date    28-December-2012
-  * @brief   This file provides set of firmware functions to manage Leds and
-  *          push-button available on STM32F4-Discovery Kit from STMicroelectronics. 
-  *          Modified to support the STM32F4DISCOVERY, STM32F4DIS-BB, STM32F4DIS-CAM
-  *          and STM32F4DIS-LCD modules.      
-  ******************************************************************************
-  * @attention
-  *
-  * THE PRESENT FIRMWARE WHICH IS FOR GUIDANCE ONLY AIMS AT PROVIDING CUSTOMERS
-  * WITH CODING INFORMATION REGARDING THEIR PRODUCTS IN ORDER FOR THEM TO SAVE
-  * TIME. AS A RESULT, Embest SHALL NOT BE HELD LIABLE FOR ANY DIRECT, INDIRECT
-  * OR CONSEQUENTIAL DAMAGES WITH RESPECT TO ANY CLAIMS ARISING FROM THE CONTENT
-  * OF SUCH FIRMWARE AND/OR THE USE MADE BY CUSTOMERS OF THE CODING INFORMATION
-  * CONTAINED HEREIN IN CONNECTION WITH THEIR PRODUCTS.
-  ******************************************************************************
-  */  
+  */
+
 /* Includes ------------------------------------------------------------------*/
 #include "stm32f4_discovery.h"
 
 /** @addtogroup Utilities
   * @{
-  */ 
+  */
 
 /** @addtogroup STM32F4_DISCOVERY
   * @{
-  */   
-    
-/** @defgroup STM32F4_DISCOVERY_LOW_LEVEL 
+  */
+
+/** @defgroup STM32F4_DISCOVERY_LOW_LEVEL
   * @brief This file provides set of firmware functions to manage Leds and push-button
   *        available on STM32F4-Discovery Kit from STMicroelectronics.
   * @{
-  */ 
+  */
 
 /** @defgroup STM32F4_DISCOVERY_LOW_LEVEL_Private_TypesDefinitions
   * @{
-  */ 
+  */
 /**
   * @}
-  */ 
+  */
 
 
 /** @defgroup STM32F4_DISCOVERY_LOW_LEVEL_Private_Defines
   * @{
-  */ 
+  */
 /**
   * @}
-  */ 
+  */
 
 
 /** @defgroup STM32F4_DISCOVERY_LOW_LEVEL_Private_Macros
   * @{
-  */ 
+  */
 /**
   * @}
-  */ 
+  */
 
 
 /** @defgroup STM32F4_DISCOVERY_LOW_LEVEL_Private_Variables
   * @{
-  */ 
+  */
 GPIO_TypeDef* GPIO_PORT[LEDn] = {LED4_GPIO_PORT, LED3_GPIO_PORT, LED5_GPIO_PORT,
-                                 LED6_GPIO_PORT,LED7_GPIO_PORT};
+                                 LED6_GPIO_PORT};
 const uint16_t GPIO_PIN[LEDn] = {LED4_PIN, LED3_PIN, LED5_PIN,
-                                 LED6_PIN,LED7_PIN};
+                                 LED6_PIN};
 const uint32_t GPIO_CLK[LEDn] = {LED4_GPIO_CLK, LED3_GPIO_CLK, LED5_GPIO_CLK,
-                                 LED6_GPIO_CLK,LED7_GPIO_CLK};
+                                 LED6_GPIO_CLK};
 
-GPIO_TypeDef* BUTTON_PORT[BUTTONn] = {USER_BUTTON_GPIO_PORT }; 
-
-const uint16_t BUTTON_PIN[BUTTONn] = {USER_BUTTON_PIN }; 
-
+GPIO_TypeDef* BUTTON_PORT[BUTTONn] = {USER_BUTTON_GPIO_PORT };
+const uint16_t BUTTON_PIN[BUTTONn] = {USER_BUTTON_PIN };
 const uint32_t BUTTON_CLK[BUTTONn] = {USER_BUTTON_GPIO_CLK };
-
 const uint16_t BUTTON_EXTI_LINE[BUTTONn] = {USER_BUTTON_EXTI_LINE };
-
 const uint8_t BUTTON_PORT_SOURCE[BUTTONn] = {USER_BUTTON_EXTI_PORT_SOURCE};
-								 
-const uint8_t BUTTON_PIN_SOURCE[BUTTONn] = {USER_BUTTON_EXTI_PIN_SOURCE }; 
+const uint8_t BUTTON_PIN_SOURCE[BUTTONn] = {USER_BUTTON_EXTI_PIN_SOURCE };
 const uint8_t BUTTON_IRQn[BUTTONn] = {USER_BUTTON_EXTI_IRQn };
 
-
-USART_TypeDef* COM_USART[COMn] = {EVAL_COM1,EVAL_COM2}; 
-
-GPIO_TypeDef* COM_TX_PORT[COMn] = {EVAL_COM1_TX_GPIO_PORT, EVAL_COM2_TX_GPIO_PORT};
- 
-GPIO_TypeDef* COM_RX_PORT[COMn] = {EVAL_COM1_RX_GPIO_PORT, EVAL_COM2_RX_GPIO_PORT};
-
-const uint32_t COM_USART_CLK[COMn] = {EVAL_COM1_CLK, EVAL_COM2_CLK};
-
-const uint32_t COM_TX_PORT_CLK[COMn] = {EVAL_COM1_TX_GPIO_CLK, EVAL_COM2_TX_GPIO_CLK};
- 
-const uint32_t COM_RX_PORT_CLK[COMn] = {EVAL_COM1_RX_GPIO_CLK, EVAL_COM2_RX_GPIO_CLK};
-
-const uint16_t COM_TX_PIN[COMn] = {EVAL_COM1_TX_PIN, EVAL_COM2_TX_PIN};
-
-const uint16_t COM_RX_PIN[COMn] = {EVAL_COM1_RX_PIN, EVAL_COM2_RX_PIN};
- 
-const uint16_t COM_TX_PIN_SOURCE[COMn] = {EVAL_COM1_TX_SOURCE, EVAL_COM2_TX_SOURCE};
-
-const uint16_t COM_RX_PIN_SOURCE[COMn] = {EVAL_COM1_RX_SOURCE, EVAL_COM2_RX_SOURCE};
- 
-const uint16_t COM_TX_AF[COMn] = {EVAL_COM1_TX_AF, EVAL_COM2_TX_AF};
- 
-const uint16_t COM_RX_AF[COMn] = {EVAL_COM1_RX_AF, EVAL_COM2_RX_AF};
-
-NVIC_InitTypeDef   NVIC_InitStructure;
+USART_TypeDef* COM_USART[COMn] = {EVAL_COM1};
+GPIO_TypeDef* COM_TX_PORT[COMn] = {EVAL_COM1_TX_GPIO_PORT};
+GPIO_TypeDef* COM_RX_PORT[COMn] = {EVAL_COM1_RX_GPIO_PORT};
+const uint32_t COM_USART_CLK[COMn] = {EVAL_COM1_CLK};
+const uint32_t COM_TX_PORT_CLK[COMn] = {EVAL_COM1_TX_GPIO_CLK};
+const uint32_t COM_RX_PORT_CLK[COMn] = {EVAL_COM1_RX_GPIO_CLK};
+const uint16_t COM_TX_PIN[COMn] = {EVAL_COM1_TX_PIN};
+const uint16_t COM_RX_PIN[COMn] = {EVAL_COM1_RX_PIN};
+const uint8_t COM_TX_PIN_SOURCE[COMn] = {EVAL_COM1_TX_SOURCE};
+const uint8_t COM_RX_PIN_SOURCE[COMn] = {EVAL_COM1_RX_SOURCE};
+const uint8_t COM_TX_AF[COMn] = {EVAL_COM1_TX_AF};
+const uint8_t COM_RX_AF[COMn] = {EVAL_COM1_RX_AF};
 
 /**
   * @}
-  */ 
+  */
 
 
 /** @defgroup STM32F4_DISCOVERY_LOW_LEVEL_Private_FunctionPrototypes
   * @{
-  */ 
+  */
 
 /**
   * @}
-  */ 
+  */
 
 /** @defgroup STM32F4_DISCOVERY_LOW_LEVEL_Private_Functions
   * @{
-  */ 
+  */
 
 /**
   * @brief  Configures LED GPIO.
-  * @param  Led: Specifies the Led to be configured. 
+  * @param  Led: Specifies the Led to be configured.
   *   This parameter can be one of following parameters:
   *     @arg LED4
   *     @arg LED3
@@ -162,7 +126,7 @@ NVIC_InitTypeDef   NVIC_InitStructure;
 void STM_EVAL_LEDInit(Led_TypeDef Led)
 {
   GPIO_InitTypeDef  GPIO_InitStructure;
-  
+
   /* Enable the GPIO_LED Clock */
   RCC_AHB1PeriphClockCmd(GPIO_CLK[Led], ENABLE);
 
@@ -177,12 +141,12 @@ void STM_EVAL_LEDInit(Led_TypeDef Led)
 
 /**
   * @brief  Turns selected LED On.
-  * @param  Led: Specifies the Led to be set on. 
+  * @param  Led: Specifies the Led to be set on.
   *   This parameter can be one of following parameters:
   *     @arg LED4
   *     @arg LED3
   *     @arg LED5
-  *     @arg LED6  
+  *     @arg LED6
   * @retval None
   */
 void STM_EVAL_LEDOn(Led_TypeDef Led)
@@ -192,27 +156,27 @@ void STM_EVAL_LEDOn(Led_TypeDef Led)
 
 /**
   * @brief  Turns selected LED Off.
-  * @param  Led: Specifies the Led to be set off. 
+  * @param  Led: Specifies the Led to be set off.
   *   This parameter can be one of following parameters:
   *     @arg LED4
   *     @arg LED3
   *     @arg LED5
-  *     @arg LED6 
+  *     @arg LED6
   * @retval None
   */
 void STM_EVAL_LEDOff(Led_TypeDef Led)
 {
-  GPIO_PORT[Led]->BSRRH = GPIO_PIN[Led];  
+  GPIO_PORT[Led]->BSRRH = GPIO_PIN[Led];
 }
 
 /**
   * @brief  Toggles the selected LED.
-  * @param  Led: Specifies the Led to be toggled. 
+  * @param  Led: Specifies the Led to be toggled.
   *   This parameter can be one of following parameters:
   *     @arg LED4
   *     @arg LED3
   *     @arg LED5
-  *     @arg LED6  
+  *     @arg LED6
   * @retval None
   */
 void STM_EVAL_LEDToggle(Led_TypeDef Led)
@@ -225,10 +189,10 @@ void STM_EVAL_LEDToggle(Led_TypeDef Led)
   * @param  Button: Specifies the Button to be configured.
   *   This parameter should be: BUTTON_USER
   * @param  Button_Mode: Specifies Button mode.
-  *   This parameter can be one of following parameters:   
-  *     @arg BUTTON_MODE_GPIO: Button will be used as simple IO 
+  *   This parameter can be one of following parameters:
+  *     @arg BUTTON_MODE_GPIO: Button will be used as simple IO
   *     @arg BUTTON_MODE_EXTI: Button will be connected to EXTI line with interrupt
-  *                            generation capability  
+  *                            generation capability
   * @retval None
   */
 void STM_EVAL_PBInit(Button_TypeDef Button, ButtonMode_TypeDef Button_Mode)
@@ -255,7 +219,7 @@ void STM_EVAL_PBInit(Button_TypeDef Button, ButtonMode_TypeDef Button_Mode)
     /* Configure Button EXTI line */
     EXTI_InitStructure.EXTI_Line = BUTTON_EXTI_LINE[Button];
     EXTI_InitStructure.EXTI_Mode = EXTI_Mode_Interrupt;
-    EXTI_InitStructure.EXTI_Trigger = EXTI_Trigger_Rising;  
+    EXTI_InitStructure.EXTI_Trigger = EXTI_Trigger_Rising;
     EXTI_InitStructure.EXTI_LineCmd = ENABLE;
     EXTI_Init(&EXTI_InitStructure);
 
@@ -265,14 +229,14 @@ void STM_EVAL_PBInit(Button_TypeDef Button, ButtonMode_TypeDef Button_Mode)
     NVIC_InitStructure.NVIC_IRQChannelSubPriority = 0x0F;
     NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
 
-    NVIC_Init(&NVIC_InitStructure); 
+    NVIC_Init(&NVIC_InitStructure);
   }
 }
 
 /**
   * @brief  Returns the selected Button state.
   * @param  Button: Specifies the Button to be checked.
-  *   This parameter should be: BUTTON_USER  
+  *   This parameter should be: BUTTON_USER
   * @retval The Button GPIO pin value.
   */
 uint32_t STM_EVAL_PBGetState(Button_TypeDef Button)
@@ -282,13 +246,14 @@ uint32_t STM_EVAL_PBGetState(Button_TypeDef Button)
 
 /**
   * @}
-  */ 
+  */
+
 /**
   * @brief  Configures COM port.
   * @param  COM: Specifies the COM port to be configured.
-  *   This parameter can be one of following parameters:    
+  *   This parameter can be one of following parameters:
   *     @arg COM1
-  *     @arg COM2  
+  *     @arg COM2
   * @param  USART_InitStruct: pointer to a USART_InitTypeDef structure that
   *   contains the configuration information for the specified USART peripheral.
   * @retval None
@@ -300,11 +265,11 @@ void STM_EVAL_COMInit(COM_TypeDef COM, USART_InitTypeDef* USART_InitStruct)
   /* Enable GPIO clock */
   RCC_AHB1PeriphClockCmd(COM_TX_PORT_CLK[COM] | COM_RX_PORT_CLK[COM], ENABLE);
 
-   /* Enable UART clock */
-  RCC_APB2PeriphClockCmd(COM_USART_CLK[COM], ENABLE);
-  
+  if (COM == COM1)
+  {
     /* Enable UART clock */
-  //RCC_APB1PeriphClockCmd(COM_USART_CLK[COM], ENABLE);	 
+    RCC_APB1PeriphClockCmd(COM_USART_CLK[COM], ENABLE);
+  }
 
   /* Connect PXx to USARTx_Tx*/
   GPIO_PinAFConfig(COM_TX_PORT[COM], COM_TX_PIN_SOURCE[COM], COM_TX_AF[COM]);
@@ -328,14 +293,11 @@ void STM_EVAL_COMInit(COM_TypeDef COM, USART_InitTypeDef* USART_InitStruct)
 
   /* USART configuration */
   USART_Init(COM_USART[COM], USART_InitStruct);
-    
+
   /* Enable USART */
   USART_Cmd(COM_USART[COM], ENABLE);
 }
 
-/**
-  * @}
-  */ 
 /**
   * @brief  DeInitializes the SDIO interface.
   * @param  None
@@ -344,16 +306,16 @@ void STM_EVAL_COMInit(COM_TypeDef COM, USART_InitTypeDef* USART_InitStruct)
 void SD_LowLevel_DeInit(void)
 {
   GPIO_InitTypeDef  GPIO_InitStructure;
-  
+
   /*!< Disable SDIO Clock */
   SDIO_ClockCmd(DISABLE);
-  
+
   /*!< Set Power State to OFF */
   SDIO_SetPowerState(SDIO_PowerState_OFF);
 
   /*!< DeInitializes the SDIO peripheral */
   SDIO_DeInit();
-  
+
   /* Disable the SDIO APB2 Clock */
   RCC_APB2PeriphClockCmd(RCC_APB2Periph_SDIO, DISABLE);
 
@@ -380,7 +342,7 @@ void SD_LowLevel_DeInit(void)
 }
 
 /**
-  * @brief  Initializes the SD Card and put it into StandBy State (Ready for 
+  * @brief  Initializes the SD Card and put it into StandBy State (Ready for
   *         data transfer).
   * @param  None
   * @retval None
@@ -415,7 +377,7 @@ void SD_LowLevel_Init(void)
   GPIO_InitStructure.GPIO_Pin = GPIO_Pin_12;
   GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_NOPULL;
   GPIO_Init(GPIOC, &GPIO_InitStructure);
-  
+
   /*!< Configure SD_SPI_DETECT_PIN pin: SD Card detect pin */
   GPIO_InitStructure.GPIO_Pin = SD_DETECT_PIN;
   GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IN;
@@ -468,7 +430,7 @@ void SD_LowLevel_DMA_TxConfig(uint32_t *BufferSRC, uint32_t BufferSize)
 
   /* DMA2 Stream3  or Stream6 enable */
   DMA_Cmd(SD_SDIO_DMA_STREAM, ENABLE);
-    
+
 }
 
 /**
@@ -514,11 +476,14 @@ void SD_LowLevel_DMA_RxConfig(uint32_t *BufferDST, uint32_t BufferSize)
 
 /**
   * @}
-  */   
-
+  */
 
 /**
   * @}
-  */ 
-    
-/*********** Portions COPYRIGHT 2012 Embest Tech. Co., Ltd.*****END OF FILE****/
+  */
+
+/**
+  * @}
+  */
+
+/******************* (C) COPYRIGHT 2011 STMicroelectronics *****END OF FILE****/

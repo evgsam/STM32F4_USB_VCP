@@ -113,8 +113,8 @@ USBD_Usr_cb_TypeDef USR_cb = {
 void USBD_USR_Init(void)
 {
   /* Initialize LEDs */
-  STM_EVAL_LEDInit(LED1);
-  STM_EVAL_LEDInit(LED2);
+  STM_EVAL_LEDInit(LED5);
+  STM_EVAL_LEDInit(LED6);
   STM_EVAL_LEDInit(LED3);
   STM_EVAL_LEDInit(LED4);
 
