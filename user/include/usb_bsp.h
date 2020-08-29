@@ -1,10 +1,10 @@
 /**
   ******************************************************************************
-  * @file    stm32fxxx_it.h 
+  * @file    usb_bsp.h
   * @author  MCD Application Team
-  * @version V1.1.0
+  * @version V2.1.0
   * @date    19-March-2012
-  * @brief   This file contains the headers of the interrupt handlers.
+  * @brief   Specific api's relative to the used hardware platform
   ******************************************************************************
   * @attention
   *
@@ -23,38 +23,81 @@
   * limitations under the License.
   *
   ******************************************************************************
-  */ 
+  */
 
 /* Define to prevent recursive inclusion -------------------------------------*/
-#ifndef __STM32Fxxx_IT_H
-#define __STM32Fxxx_IT_H
-
-#ifdef __cplusplus
- extern "C" {
-#endif 
+#ifndef __USB_BSP__H__
+#define __USB_BSP__H__
 
 /* Includes ------------------------------------------------------------------*/
+#include "usb_core.h"
 #include "usb_conf.h"
 
-/* Exported types ------------------------------------------------------------*/
-/* Exported constants --------------------------------------------------------*/
-/* Exported macro ------------------------------------------------------------*/
-/* Exported functions ------------------------------------------------------- */
+/** @addtogroup USB_OTG_DRIVER
+  * @{
+  */
+  
+/** @defgroup USB_BSP
+  * @brief This file is the 
+  * @{
+  */ 
 
-void NMI_Handler(void);
-void HardFault_Handler(void);
-void MemManage_Handler(void);
-void BusFault_Handler(void);
-void UsageFault_Handler(void);
-void SVC_Handler(void);
-void DebugMon_Handler(void);
-void PendSV_Handler(void);
-void SysTick_Handler(void);
 
-#ifdef __cplusplus
-}
+/** @defgroup USB_BSP_Exported_Defines
+  * @{
+  */ 
+/**
+  * @}
+  */ 
+
+
+/** @defgroup USB_BSP_Exported_Types
+  * @{
+  */ 
+/**
+  * @}
+  */ 
+
+
+/** @defgroup USB_BSP_Exported_Macros
+  * @{
+  */ 
+/**
+  * @}
+  */ 
+
+/** @defgroup USB_BSP_Exported_Variables
+  * @{
+  */ 
+/**
+  * @}
+  */ 
+
+/** @defgroup USB_BSP_Exported_FunctionsPrototype
+  * @{
+  */ 
+void BSP_Init(void);
+
+void USB_OTG_BSP_Init (USB_OTG_CORE_HANDLE *pdev);
+void USB_OTG_BSP_uDelay (const uint32_t usec);
+void USB_OTG_BSP_mDelay (const uint32_t msec);
+void USB_OTG_BSP_EnableInterrupt (USB_OTG_CORE_HANDLE *pdev);
+#ifdef USE_HOST_MODE
+void USB_OTG_BSP_ConfigVBUS(USB_OTG_CORE_HANDLE *pdev);
+void USB_OTG_BSP_DriveVBUS(USB_OTG_CORE_HANDLE *pdev,uint8_t state);
 #endif
+/**
+  * @}
+  */ 
 
-#endif /* __STM32Fxxx_IT_H */
+#endif //__USB_BSP__H__
 
+/**
+  * @}
+  */ 
+
+/**
+  * @}
+  */ 
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
+

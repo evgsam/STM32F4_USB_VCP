@@ -1,10 +1,10 @@
 /**
   ******************************************************************************
-  * @file    stm32fxxx_it.h 
+  * @file    usbd_cdc_vcp.h
   * @author  MCD Application Team
   * @version V1.1.0
   * @date    19-March-2012
-  * @brief   This file contains the headers of the interrupt handlers.
+  * @brief   Header for usbd_cdc_vcp.c file.
   ******************************************************************************
   * @attention
   *
@@ -23,38 +23,56 @@
   * limitations under the License.
   *
   ******************************************************************************
-  */ 
+  */
 
 /* Define to prevent recursive inclusion -------------------------------------*/
-#ifndef __STM32Fxxx_IT_H
-#define __STM32Fxxx_IT_H
-
-#ifdef __cplusplus
- extern "C" {
-#endif 
+#ifndef __USBD_CDC_VCP_H
+#define __USBD_CDC_VCP_H
 
 /* Includes ------------------------------------------------------------------*/
-#include "usb_conf.h"
+#if defined (STM32F2XX)
+ #include "stm32f2xx.h"
+#elif defined (STM32F4XX)
+ #include "stm32f4xx.h"
+#elif defined(STM32F10X_CL)
+ #include "stm32f10x.h"
+#endif /* STM32F2XX */
 
-/* Exported types ------------------------------------------------------------*/
+#include "usbd_cdc_core.h"
+#include "usbd_conf.h"
+
+
+/* Exported typef ------------------------------------------------------------*/
+/* The following structures groups all needed parameters to be configured for the 
+   ComPort. These parameters can modified on the fly by the host through CDC class
+   command class requests. */
+typedef struct
+{
+  uint32_t bitrate;
+  uint8_t  format;
+  uint8_t  paritytype;
+  uint8_t  datatype;
+}LINE_CODING;
+
 /* Exported constants --------------------------------------------------------*/
+/* The following define is used to route the USART IRQ handler to be used.
+   The IRQ handler function is implemented in the usbd_cdc_vcp.c file. */
+
+#if defined (USE_STM32F4_DISCOVERY)
+ #define EVAL_COM_IRQHandler            USART2_IRQHandler
+#elif defined (USE_STM3210C_EVAL)
+ #define EVAL_COM_IRQHandler            USART2_IRQHandler
+#else
+ #define EVAL_COM_IRQHandler            USART3_IRQHandler  
+#endif /* USE_STM322xG_EVAL */
+
+
+#define DEFAULT_CONFIG                  0
+#define OTHER_CONFIG                    1
+
 /* Exported macro ------------------------------------------------------------*/
 /* Exported functions ------------------------------------------------------- */
 
-void NMI_Handler(void);
-void HardFault_Handler(void);
-void MemManage_Handler(void);
-void BusFault_Handler(void);
-void UsageFault_Handler(void);
-void SVC_Handler(void);
-void DebugMon_Handler(void);
-void PendSV_Handler(void);
-void SysTick_Handler(void);
-
-#ifdef __cplusplus
-}
-#endif
-
-#endif /* __STM32Fxxx_IT_H */
+#endif /* __USBD_CDC_VCP_H */
 
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
