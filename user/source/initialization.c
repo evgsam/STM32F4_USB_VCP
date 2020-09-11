@@ -128,7 +128,7 @@ void pvrADCConfiguration(void) {
 	ADC_InitStructure.ADC_ExternalTrigConv = ADC_ExternalTrigConv_T3_TRGO;
 	ADC_InitStructure.ADC_ExternalTrigConvEdge = ADC_ExternalTrigConvEdge_RisingFalling;
 	ADC_InitStructure.ADC_DataAlign = ADC_DataAlign_Right;
-	ADC_InitStructure.ADC_NbrOfConversion = ui8ChanalSum;
+	ADC_InitStructure.ADC_NbrOfConversion = 1; ui8ChanalSum;
 	ADC_Init(ADC2, &ADC_InitStructure);
 
 	//*****************************************************************************/
@@ -183,7 +183,7 @@ void pvrADCConfiguration(void) {
 	//****************************************************************************/
 
 	ADC_RegularChannelConfig(ADC2, ADC_Channel_14, 1, ADC_SampleTime);			//PC4
-	ADC_RegularChannelConfig(ADC2, ADC_Channel_8, 2, ADC_SampleTime);			//PB0
+/*	ADC_RegularChannelConfig(ADC2, ADC_Channel_8, 2, ADC_SampleTime);			//PB0
 
 	ADC_RegularChannelConfig(ADC2, ADC_Channel_4, 3, ADC_SampleTime);	 		//PA4
 	ADC_RegularChannelConfig(ADC2, ADC_Channel_6, 4, ADC_SampleTime);			//PA6
@@ -193,7 +193,7 @@ void pvrADCConfiguration(void) {
 
 	ADC_RegularChannelConfig(ADC2, ADC_Channel_11, 7, ADC_SampleTime);			//PC1
 	ADC_RegularChannelConfig(ADC2, ADC_Channel_13, 8, ADC_SampleTime);			//PC3
-
+*/
 	//*****************************************************************************/
 	//		ADC DMA Configuration enable
 	//*****************************************************************************/

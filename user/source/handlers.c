@@ -17,7 +17,7 @@ void EXTI0_IRQHandler(void) {
 	xprintf("EXTI_Line0 event \n");
 #endif
 	STM_EVAL_LEDToggle(LED4);
-	sendHello("hello \n", sizeof("hello \n"));
+	//sendHello("hello \n", sizeof("hello \n"));
 }
 
 void DMA2_Stream3_IRQHandler(void) {

@@ -14,12 +14,16 @@ int main(void) {
 	SystemInit();
 
 	initialization();
-	EXTILine0_Config();
+	USBD_Init(&USB_OTG_dev, USB_OTG_FS_CORE_ID, &USR_desc, &USBD_CDC_cb, &USR_cb);
+
+	pvrADCConfiguration();
+	ADC_SoftwareStartConv(ADC2);
+	//EXTILine0_Config();
 #ifdef DEBUG_MODE
 	xprintf(" hello! \n");
 #endif
 
-	USBD_Init(&USB_OTG_dev, USB_OTG_FS_CORE_ID, &USR_desc, &USBD_CDC_cb, &USR_cb);
+
 
 	/* Main loop */
 	while (1) {
