@@ -16,7 +16,15 @@
 #include <stm32f4_discovery.h>
 #include <stm32f4_discovery_debug.h>
 
+
+#include "usbd_cdc_core.h"
+#include "usbd_usr.h"
+#include "usb_conf.h"
+#include "usbd_desc.h"
+#include "usbd_cdc_core_loopback.h"
+
 volatile uint32_t ui32ticksDelay;
 
+void sendHello(void);
 
 #endif /* USER_INCLUDE_MAIN_H_ */

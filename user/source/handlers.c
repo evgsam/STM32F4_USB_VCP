@@ -7,6 +7,15 @@
 
 #include <main.h>
 
-void SysTick_Handler(void) {
-	ui32ticksDelay++;
+
+
+void EXTI0_IRQHandler(void) {
+	EXTI_ClearITPendingBit(EXTI_Line0);
+
+
+#ifdef DEBUG
+	xprintf("EXTI_Line0 event \n");
+#endif
+	STM_EVAL_LEDToggle(LED4);
+	sendHello();
 }
