@@ -23,8 +23,10 @@
 #include "usbd_desc.h"
 #include "usbd_cdc_core_loopback.h"
 
+#include "global_variables.h"
+
 volatile uint32_t ui32ticksDelay;
 
-void sendHello(void);
+void sendHello(uint8_t * pbuf, uint32_t buf_len);
 
 #endif /* USER_INCLUDE_MAIN_H_ */

@@ -6,8 +6,8 @@ uint8_t Rxbuffer[64];
 __IO uint32_t receive_count = 1;
 extern __IO uint32_t data_sent;
 
-void sendHello(void) {
-	VCP_SendData(&USB_OTG_dev, "hello \n", sizeof("hello \n"));
+void sendHello(uint8_t * pbuf, uint32_t buf_len) {
+	VCP_SendData(&USB_OTG_dev, &pbuf, buf_len);
 }
 
 int main(void) {
