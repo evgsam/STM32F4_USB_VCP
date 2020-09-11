@@ -23,8 +23,7 @@ int main(void) {
 
 	/* Main loop */
 	while (1) {
-		/*while (VCP_CheckDataReceived() == 0)
-			;
+		/*while (VCP_CheckDataReceived() == 0);
 
 		//receive one character
 		VCP_ReceiveData(&USB_OTG_dev, Rxbuffer, receive_count);
@@ -44,6 +43,7 @@ int main(void) {
 			receive_count = 0;
 
 		}
+		*/
 
 	}
 }
