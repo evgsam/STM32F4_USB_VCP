@@ -2,25 +2,19 @@
   ******************************************************************************
   * @file    usb_conf.h
   * @author  MCD Application Team
-  * @version V1.1.0
-  * @date    19-March-2012
+  * @version V1.2.1
+  * @date    17-March-2018
   * @brief   General low level driver configuration
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; COPYRIGHT 2012 STMicroelectronics</center></h2>
+  * <h2><center>&copy; Copyright (c) 2015 STMicroelectronics.
+  * All rights reserved.</center></h2>
   *
-  * Licensed under MCD-ST Liberty SW License Agreement V2, (the "License");
-  * You may not use this file except in compliance with the License.
-  * You may obtain a copy of the License at:
-  *
-  *        http://www.st.com/software_license_agreement_liberty_v2
-  *
-  * Unless required by applicable law or agreed to in writing, software
-  * distributed under the License is distributed on an "AS IS" BASIS,
-  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-  * See the License for the specific language governing permissions and
-  * limitations under the License.
+  * This software component is licensed by ST under Ultimate Liberty license
+  * SLA0044, the "License"; You may not use this file except in compliance with
+  * the License. You may obtain a copy of the License at:
+  *                      <http://www.st.com/SLA0044>
   *
   ******************************************************************************
   */
@@ -30,16 +24,30 @@
 #define __USB_CONF__H__
 
 /* Includes ------------------------------------------------------------------*/
-#if defined (USE_STM32F4_DISCOVERY)
- #include "stm32f4_discovery.h"
-#elif defined (USE_STM322xG_EVAL)
+#if defined (USE_STM322xG_EVAL)
  #include "stm322xg_eval.h"
+ #include "stm322xg_eval_lcd.h"
+ #include "stm322xg_eval_ioe.h"
+
 #elif defined(USE_STM324xG_EVAL)
  #include "stm32f4xx.h"
  #include "stm324xg_eval.h"
+ #include "stm324xg_eval_lcd.h"
+ #include "stm324xg_eval_ioe.h"
+
+#elif defined(USE_STM32F4_DISCOVERY)
+ #include "stm32f4xx.h"
+
+
 #elif defined (USE_STM3210C_EVAL)
  #include "stm32f10x.h"
  #include "stm3210c_eval.h"
+ #include "stm3210c_eval_lcd.h"
+ #include "stm3210c_eval_ioe.h"
+
+#elif defined (USE_STM32446_EVAL) || defined (USE_STM32469I_EVAL)
+  #include "stm32f4xx.h"
+
 #else
  #error "Missing define: Evaluation board (ie. USE_STM322xG_EVAL)"
 #endif
@@ -69,7 +77,7 @@
 *  when FS core is used.
 *******************************************************************************/
 #ifndef USE_USB_OTG_FS
- //#define USE_USB_OTG_FS
+/* #define USE_USB_OTG_FS */
 #endif /* USE_USB_OTG_FS */
 
 #ifdef USE_USB_OTG_FS
@@ -94,15 +102,15 @@
 *     STM32 device datasheet.
 *******************************************************************************/
 #ifndef USE_USB_OTG_HS
- //#define USE_USB_OTG_HS
+/* #define USE_USB_OTG_HS */
 #endif /* USE_USB_OTG_HS */
 
 #ifndef USE_ULPI_PHY
- //#define USE_ULPI_PHY
+/* #define USE_ULPI_PHY */
 #endif /* USE_ULPI_PHY */
 
 #ifndef USE_EMBEDDED_PHY
- //#define USE_EMBEDDED_PHY
+/* #define USE_EMBEDDED_PHY */
 #endif /* USE_EMBEDDED_PHY */
 
 #ifdef USE_USB_OTG_HS
@@ -148,50 +156,45 @@
 /****************** USB OTG HS CONFIGURATION **********************************/
 #ifdef USB_OTG_HS_CORE
  #define RX_FIFO_HS_SIZE                          512
- #define TX0_FIFO_HS_SIZE                          64
+ #define TX0_FIFO_HS_SIZE                         128
  #define TX1_FIFO_HS_SIZE                         372
- #define TX2_FIFO_HS_SIZE                          64
+ #define TX2_FIFO_HS_SIZE                          0
  #define TX3_FIFO_HS_SIZE                          0
  #define TX4_FIFO_HS_SIZE                          0
  #define TX5_FIFO_HS_SIZE                          0
 
-// #define USB_OTG_HS_SOF_OUTPUT_ENABLED
+/* #define USB_OTG_HS_SOF_OUTPUT_ENABLED */
 
  #ifdef USE_ULPI_PHY
   #define USB_OTG_ULPI_PHY_ENABLED
  #endif
  #ifdef USE_EMBEDDED_PHY
    #define USB_OTG_EMBEDDED_PHY_ENABLED
-   /* wakeup is working only when HS core is configured in FS mode */
-   #define USB_OTG_HS_LOW_PWR_MGMT_SUPPORT
  #endif
- /* #define USB_OTG_HS_INTERNAL_DMA_ENABLED */ /* Be aware that enabling DMA mode will result in data being sent only by
-                                                  multiple of 4 packet sizes. This is due to the fact that USB DMA does
-                                                  not allow sending data from non word-aligned addresses.
-                                                  For this specific application, it is advised to not enable this option
-                                                  unless required. */
+/* #define USB_OTG_HS_INTERNAL_DMA_ENABLED */
  #define USB_OTG_HS_DEDICATED_EP1_ENABLED
+/* #define USB_OTG_HS_LOW_PWR_MGMT_SUPPORT */
 #endif
 
 /****************** USB OTG FS CONFIGURATION **********************************/
 #ifdef USB_OTG_FS_CORE
  #define RX_FIFO_FS_SIZE                          128
- #define TX0_FIFO_FS_SIZE                          32
+ #define TX0_FIFO_FS_SIZE                          64
  #define TX1_FIFO_FS_SIZE                         128
- #define TX2_FIFO_FS_SIZE                          32 
+ #define TX2_FIFO_FS_SIZE                          0
  #define TX3_FIFO_FS_SIZE                          0
 
-// #define USB_OTG_FS_LOW_PWR_MGMT_SUPPORT
-// #define USB_OTG_FS_SOF_OUTPUT_ENABLED
+/* #define USB_OTG_FS_LOW_PWR_MGMT_SUPPORT */
+/* #define USB_OTG_FS_SOF_OUTPUT_ENABLED */
 #endif
 
 /****************** USB OTG MISC CONFIGURATION ********************************/
 #define VBUS_SENSING_ENABLED
 
 /****************** USB OTG MODE CONFIGURATION ********************************/
-//#define USE_HOST_MODE
+/* #define USE_HOST_MODE */
 #define USE_DEVICE_MODE
-//#define USE_OTG_MODE
+/* #define USE_OTG_MODE */
 
 #ifndef USB_OTG_FS_CORE
  #ifndef USB_OTG_HS_CORE
@@ -209,7 +212,7 @@
  #ifndef USE_USB_OTG_FS
     #error  "USE_USB_OTG_HS or USE_USB_OTG_FS should be defined"
  #endif
-#else //USE_USB_OTG_HS
+#else /* USE_USB_OTG_HS */
  #ifndef USE_ULPI_PHY
   #ifndef USE_EMBEDDED_PHY
      #error  "USE_ULPI_PHY or USE_EMBEDDED_PHY should be defined"
@@ -230,8 +233,6 @@
       #define __ALIGN_BEGIN    __align(4)
     #elif defined (__ICCARM__)    /* IAR Compiler */
       #define __ALIGN_BEGIN
-    #elif defined  (__TASKING__)  /* TASKING Compiler */
-      #define __ALIGN_BEGIN    __align(4)
     #endif /* __CC_ARM */
   #endif /* __GNUC__ */
 #else
@@ -245,9 +246,10 @@
 #elif defined (__ICCARM__)     /* IAR Compiler */
   #define __packed    __packed
 #elif defined   ( __GNUC__ )   /* GNU Compiler */
-  #define __packed    __attribute__ ((__packed__))
-#elif defined   (__TASKING__)  /* TASKING Compiler */
-  #define __packed    __unaligned
+#ifdef __packed
+#undef __packed
+#endif
+  #define __packed    __attribute__((__packed__))
 #endif /* __CC_ARM */
 
 /**
@@ -285,7 +287,7 @@
   */
 
 
-#endif //__USB_CONF__H__
+#endif /*__USB_CONF__H__*/
 
 
 /**
