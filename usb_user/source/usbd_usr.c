@@ -151,7 +151,7 @@ void USBD_USR_DeviceConfigured(void) {
 void USBD_USR_DeviceSuspended(void) {
 #ifdef DEBUG_MODE
 #if ! defined (USE_STM32446_EVAL) && ! defined (USE_STM32469I_EVAL)
-	xprintf(("> USB Device in Suspend Mode.\n");
+	xprintf("> USB Device in Suspend Mode.\n");
 	/* Users can do their application actions here for the USB-Reset */
 #endif
 #endif

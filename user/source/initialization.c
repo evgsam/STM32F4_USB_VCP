@@ -128,7 +128,7 @@ void pvrADCConfiguration(void) {
 	ADC_InitStructure.ADC_ExternalTrigConv = ADC_ExternalTrigConv_T3_TRGO;
 	ADC_InitStructure.ADC_ExternalTrigConvEdge = ADC_ExternalTrigConvEdge_RisingFalling;
 	ADC_InitStructure.ADC_DataAlign = ADC_DataAlign_Right;
-	ADC_InitStructure.ADC_NbrOfConversion = 1; ui8ChanalSum;
+	ADC_InitStructure.ADC_NbrOfConversion = ui8ChanalSum;
 	ADC_Init(ADC2, &ADC_InitStructure);
 
 	//*****************************************************************************/
