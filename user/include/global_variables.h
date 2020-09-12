@@ -14,7 +14,6 @@
 
 #define ui8ChanalSum 1
 #define ui16RecFreq 16000
-#define ui8PollindTime 16
 #define ui32RecBuffSize 16000//25//(ui16RecFreq/1000)*ui8ChanalSum*ui8PollindTime
 
 
