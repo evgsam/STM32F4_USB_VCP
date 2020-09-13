@@ -25,14 +25,10 @@
 #define RecNVICDMA2Prority			3
 #define RecNVICButton1Prority		4
 
-#define ADCDMAPriority				DMA_Priority_High
-#define SPIDMAPriority				DMA_Priority_VeryHigh
+#define ADCDMAPriority				DMA_Priority_VeryHigh
 
 
-void delay(uint32_t ui32ms) {
-  uint32_t ui32start = ui32ticksDelay;
-  while((ui32ticksDelay - ui32start) < ui32ms);
-}
+
 
 
 void initialization(void) {
@@ -155,12 +151,13 @@ void pvrADCConfiguration(void) {
 	DMA_InitStructure.DMA_PeripheralInc = DMA_PeripheralInc_Disable;
 	DMA_InitStructure.DMA_MemoryInc = DMA_MemoryInc_Enable;
 	DMA_InitStructure.DMA_PeripheralDataSize = DMA_PeripheralDataSize_Byte;
-	DMA_InitStructure.DMA_MemoryDataSize = DMA_MemoryDataSize_Byte;
+	DMA_InitStructure.DMA_MemoryDataSize = DMA_MemoryDataSize_HalfWord;
 	DMA_InitStructure.DMA_Mode = DMA_Mode_Normal;
 	DMA_InitStructure.DMA_Priority = ADCDMAPriority;
 	DMA_InitStructure.DMA_FIFOMode = DMA_FIFOMode_Disable;
 	DMA_InitStructure.DMA_MemoryBurst = DMA_MemoryBurst_Single;
 	DMA_InitStructure.DMA_PeripheralBurst = DMA_PeripheralBurst_Single;
+	DMA_Init(DMA2_Stream3, &DMA_InitStructure);
 
 	DMA_DoubleBufferModeConfig(DMA2_Stream3, (uint32_t) &ui8ADCConvertedArray_1, DMA_Memory_0);
 	DMA_DoubleBufferModeCmd(DMA2_Stream3, ENABLE);
