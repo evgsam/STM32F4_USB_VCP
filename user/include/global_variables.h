@@ -20,6 +20,8 @@ uint8_t ui8ADCConvertedArray_0[ui32RecBuffSize];
 uint8_t ui8ADCConvertedArray_1[ui32RecBuffSize];
 
 
+uint8_t ui8TestArray_0[ui32RecBuffSize];
+uint8_t ui8TestArray_1[ui32RecBuffSize];
 
 
 #endif /* GLOBAL_VARIABLES_H_ */
