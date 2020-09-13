@@ -26,7 +26,8 @@
 #include "global_variables.h"
 
 volatile uint32_t ui32ticksDelay;
+volatile uint32_t ticks_delay;
 
-void sendHello(uint8_t * pbuf, uint32_t buf_len);
+void sendHello(uint32_t *pbuf, uint32_t buf_len);
 
 #endif /* USER_INCLUDE_MAIN_H_ */
