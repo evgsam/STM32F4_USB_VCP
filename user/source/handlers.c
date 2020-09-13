@@ -7,11 +7,8 @@
 
 #include <main.h>
 
-
-
 void EXTI0_IRQHandler(void) {
 	EXTI_ClearITPendingBit(EXTI_Line0);
-
 
 #ifdef DEBUG_MODE
 	xprintf("EXTI_Line0 event \n");
@@ -21,14 +18,25 @@ void EXTI0_IRQHandler(void) {
 }
 
 void DMA2_Stream3_IRQHandler(void) {
-	if (DMA_GetCurrentMemoryTarget(DMA2_Stream3) == 0) {
-		//sendHello(&ui8ADCConvertedArray_0[0], sizeof(ui8ADCConvertedArray_0) /*ui32RecBuffSize*/);
-		sendHello(&ui8TestArray_0[0], sizeof(ui8TestArray_0));
-		STM_EVAL_LEDToggle(LED3);
-	} else {
-		//sendHello(&ui8ADCConvertedArray_1[0], sizeof(ui8ADCConvertedArray_1) /*ui32RecBuffSize*/);
-		sendHello(&ui8TestArray_1[0], sizeof(ui8TestArray_1));
-		STM_EVAL_LEDToggle(LED6);
+	if (DMA_GetITStatus(DMA2_Stream3, DMA_IT_TCIF3)) {
+		DMA_ClearITPendingBit(DMA2_Stream3, DMA_IT_TCIF3);
+		if (DMA_GetCurrentMemoryTarget(DMA2_Stream3) == 0) {
+			//ui16RecBufferPoint = usADCConvertedValue_1;
+			//sendHello(&ui8TestArray_0[0], sizeof(ui8TestArray_0));
+			sendHello(&ui8ADCConvertedArray_0[0],
+					sizeof(ui8ADCConvertedArray_0));
+			STM_EVAL_LEDToggle(LED3);
+		} else {
+			//ui16RecBufferPoint = usADCConvertedValue_2;
+			//	sendHello(&ui8TestArray_1[0], sizeof(ui8TestArray_1));
+			sendHello(&ui8ADCConvertedArray_1[0],
+					sizeof(ui8ADCConvertedArray_1));
+			STM_EVAL_LEDToggle(LED6);
+		}
 	}
-	DMA_ClearITPendingBit(DMA2_Stream3, DMA_IT_TCIF3);
+
+	/*DMA_ClearITPendingBit(DMA2_Stream3, DMA_IT_TCIF3);
+	 sendHello(&ui8ADCConvertedArray_0[0], sizeof(ui8ADCConvertedArray_0));
+	 STM_EVAL_LEDToggle(LED3);
+	 */
 }

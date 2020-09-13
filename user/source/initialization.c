@@ -106,6 +106,32 @@ void pvrADCConfiguration(void) {
 	GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_NOPULL;
 	GPIO_Init(GPIOB, &GPIO_InitStructure);
 
+	//*****************************************************************************/
+	//		DMA2 Stream3 Channel1 configuration (ADC2)
+	//*****************************************************************************/
+	DMA_DeInit(DMA2_Stream3);
+	DMA_InitStructure.DMA_Channel = DMA_Channel_1;
+	DMA_InitStructure.DMA_PeripheralBaseAddr = (uint32_t) &ADC2->DR;
+	DMA_InitStructure.DMA_Memory0BaseAddr = (uint32_t) &ui8ADCConvertedArray_0;
+	DMA_InitStructure.DMA_DIR = DMA_DIR_PeripheralToMemory;
+	DMA_InitStructure.DMA_BufferSize = ui32RecBuffSize;
+	DMA_InitStructure.DMA_PeripheralInc = DMA_PeripheralInc_Disable;
+	DMA_InitStructure.DMA_MemoryInc = DMA_MemoryInc_Enable;
+	DMA_InitStructure.DMA_PeripheralDataSize = DMA_PeripheralDataSize_Byte;
+	DMA_InitStructure.DMA_MemoryDataSize = DMA_MemoryDataSize_HalfWord;
+	DMA_InitStructure.DMA_Mode = DMA_Mode_Normal;
+	DMA_InitStructure.DMA_Priority = DMA_Priority_High;//ADCDMAPriority;
+	DMA_InitStructure.DMA_FIFOMode = DMA_FIFOMode_Disable;
+	DMA_InitStructure.DMA_MemoryBurst = DMA_MemoryBurst_Single;
+	DMA_InitStructure.DMA_PeripheralBurst = DMA_PeripheralBurst_Single;
+	DMA_Init(DMA2_Stream3, &DMA_InitStructure);
+
+	DMA_DoubleBufferModeConfig(DMA2_Stream3, (uint32_t) &ui8ADCConvertedArray_1, DMA_Memory_0);
+	DMA_DoubleBufferModeCmd(DMA2_Stream3, ENABLE);
+
+	DMA_Init(DMA2_Stream3, &DMA_InitStructure);
+	DMA_ClearITPendingBit(DMA2_Stream3, DMA_IT_TCIF3);
+	DMA_ITConfig(DMA2_Stream3, DMA_IT_TC, ENABLE);
 	//***************************************************************************/
 	//		ADC main settings
 	//***************************************************************************/
