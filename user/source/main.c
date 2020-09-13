@@ -24,8 +24,8 @@ int main(void) {
 	}
 	USBD_Init(&USB_OTG_dev, USB_OTG_FS_CORE_ID, &USR_desc, &USBD_CDC_cb,&USR_cb);
 	initialization();
-	pvrADCConfiguration();
-	ADC_SoftwareStartConv(ADC2);
+	ADC2Init();
+	Tim2INT();
 
 #ifdef DEBUG_MODE
 	xprintf(" hello! \n");

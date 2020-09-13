@@ -17,6 +17,13 @@ void EXTI0_IRQHandler(void) {
 	//sendHello("hello \n", sizeof("hello \n"));
 }
 
+void TIM2_IRQHandler(void) {
+	if (TIM_GetITStatus(TIM2, TIM_IT_Update) != RESET) {
+		TIM_ClearITPendingBit(TIM2, TIM_IT_Update);
+		STM_EVAL_LEDToggle(LED3);
+	}
+}
+
 void DMA2_Stream3_IRQHandler(void) {
 	if (DMA_GetITStatus(DMA2_Stream3, DMA_IT_TCIF3)) {
 		DMA_ClearITPendingBit(DMA2_Stream3, DMA_IT_TCIF3);
