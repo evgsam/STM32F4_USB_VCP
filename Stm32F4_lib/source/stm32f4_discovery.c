@@ -16,14 +16,31 @@
   * FROM THE CONTENT OF SUCH FIRMWARE AND/OR THE USE MADE BY CUSTOMERS OF THE
   * CODING INFORMATION CONTAINED HEREIN IN CONNECTION WITH THEIR PRODUCTS.
   *
-  * <h2><center>&copy; COPYRIGHT 2011 STMicroelectronics</center></h2>
-  ******************************************************************************
-
-  PATCHED BY CLIVE SOURCER32@GMAIL.COM TO USART2
-
+  * <h2><center>&copy; Portions COPYRIGHT 2011 STMicroelectronics</center></h2>
   ******************************************************************************
   */
-
+/**
+  ******************************************************************************
+  * <h2><center>&copy; Portions COPYRIGHT 2012 Embest Tech. Co., Ltd.</center></h2>
+  * @file    stm32f4_discovery.c
+  * @author  CMP Team
+  * @version V1.0.0
+  * @date    28-December-2012
+  * @brief   This file provides set of firmware functions to manage Leds and
+  *          push-button available on STM32F4-Discovery Kit from STMicroelectronics.
+  *          Modified to support the STM32F4DISCOVERY, STM32F4DIS-BB, STM32F4DIS-CAM
+  *          and STM32F4DIS-LCD modules.
+  ******************************************************************************
+  * @attention
+  *
+  * THE PRESENT FIRMWARE WHICH IS FOR GUIDANCE ONLY AIMS AT PROVIDING CUSTOMERS
+  * WITH CODING INFORMATION REGARDING THEIR PRODUCTS IN ORDER FOR THEM TO SAVE
+  * TIME. AS A RESULT, Embest SHALL NOT BE HELD LIABLE FOR ANY DIRECT, INDIRECT
+  * OR CONSEQUENTIAL DAMAGES WITH RESPECT TO ANY CLAIMS ARISING FROM THE CONTENT
+  * OF SUCH FIRMWARE AND/OR THE USE MADE BY CUSTOMERS OF THE CODING INFORMATION
+  * CONTAINED HEREIN IN CONNECTION WITH THEIR PRODUCTS.
+  ******************************************************************************
+  */
 /* Includes ------------------------------------------------------------------*/
 #include "stm32f4_discovery.h"
 
@@ -69,32 +86,51 @@
   * @{
   */
 GPIO_TypeDef* GPIO_PORT[LEDn] = {LED4_GPIO_PORT, LED3_GPIO_PORT, LED5_GPIO_PORT,
-                                 LED6_GPIO_PORT};
+                                 LED6_GPIO_PORT,LED7_GPIO_PORT};
 const uint16_t GPIO_PIN[LEDn] = {LED4_PIN, LED3_PIN, LED5_PIN,
-                                 LED6_PIN};
+                                 LED6_PIN,LED7_PIN};
 const uint32_t GPIO_CLK[LEDn] = {LED4_GPIO_CLK, LED3_GPIO_CLK, LED5_GPIO_CLK,
-                                 LED6_GPIO_CLK};
+                                 LED6_GPIO_CLK,LED7_GPIO_CLK};
 
 GPIO_TypeDef* BUTTON_PORT[BUTTONn] = {USER_BUTTON_GPIO_PORT };
+
 const uint16_t BUTTON_PIN[BUTTONn] = {USER_BUTTON_PIN };
+
 const uint32_t BUTTON_CLK[BUTTONn] = {USER_BUTTON_GPIO_CLK };
+
 const uint16_t BUTTON_EXTI_LINE[BUTTONn] = {USER_BUTTON_EXTI_LINE };
+
 const uint8_t BUTTON_PORT_SOURCE[BUTTONn] = {USER_BUTTON_EXTI_PORT_SOURCE};
+
 const uint8_t BUTTON_PIN_SOURCE[BUTTONn] = {USER_BUTTON_EXTI_PIN_SOURCE };
 const uint8_t BUTTON_IRQn[BUTTONn] = {USER_BUTTON_EXTI_IRQn };
 
-USART_TypeDef* COM_USART[COMn] = {EVAL_COM1};
-GPIO_TypeDef* COM_TX_PORT[COMn] = {EVAL_COM1_TX_GPIO_PORT};
-GPIO_TypeDef* COM_RX_PORT[COMn] = {EVAL_COM1_RX_GPIO_PORT};
-const uint32_t COM_USART_CLK[COMn] = {EVAL_COM1_CLK};
-const uint32_t COM_TX_PORT_CLK[COMn] = {EVAL_COM1_TX_GPIO_CLK};
-const uint32_t COM_RX_PORT_CLK[COMn] = {EVAL_COM1_RX_GPIO_CLK};
-const uint16_t COM_TX_PIN[COMn] = {EVAL_COM1_TX_PIN};
-const uint16_t COM_RX_PIN[COMn] = {EVAL_COM1_RX_PIN};
-const uint8_t COM_TX_PIN_SOURCE[COMn] = {EVAL_COM1_TX_SOURCE};
-const uint8_t COM_RX_PIN_SOURCE[COMn] = {EVAL_COM1_RX_SOURCE};
-const uint8_t COM_TX_AF[COMn] = {EVAL_COM1_TX_AF};
-const uint8_t COM_RX_AF[COMn] = {EVAL_COM1_RX_AF};
+
+USART_TypeDef* COM_USART[COMn] = {EVAL_COM1,EVAL_COM2};
+
+GPIO_TypeDef* COM_TX_PORT[COMn] = {EVAL_COM1_TX_GPIO_PORT, EVAL_COM2_TX_GPIO_PORT};
+
+GPIO_TypeDef* COM_RX_PORT[COMn] = {EVAL_COM1_RX_GPIO_PORT, EVAL_COM2_RX_GPIO_PORT};
+
+const uint32_t COM_USART_CLK[COMn] = {EVAL_COM1_CLK, EVAL_COM2_CLK};
+
+const uint32_t COM_TX_PORT_CLK[COMn] = {EVAL_COM1_TX_GPIO_CLK, EVAL_COM2_TX_GPIO_CLK};
+
+const uint32_t COM_RX_PORT_CLK[COMn] = {EVAL_COM1_RX_GPIO_CLK, EVAL_COM2_RX_GPIO_CLK};
+
+const uint16_t COM_TX_PIN[COMn] = {EVAL_COM1_TX_PIN, EVAL_COM2_TX_PIN};
+
+const uint16_t COM_RX_PIN[COMn] = {EVAL_COM1_RX_PIN, EVAL_COM2_RX_PIN};
+
+const uint16_t COM_TX_PIN_SOURCE[COMn] = {EVAL_COM1_TX_SOURCE, EVAL_COM2_TX_SOURCE};
+
+const uint16_t COM_RX_PIN_SOURCE[COMn] = {EVAL_COM1_RX_SOURCE, EVAL_COM2_RX_SOURCE};
+
+const uint16_t COM_TX_AF[COMn] = {EVAL_COM1_TX_AF, EVAL_COM2_TX_AF};
+
+const uint16_t COM_RX_AF[COMn] = {EVAL_COM1_RX_AF, EVAL_COM2_RX_AF};
+
+NVIC_InitTypeDef   NVIC_InitStructure;
 
 /**
   * @}
@@ -247,7 +283,6 @@ uint32_t STM_EVAL_PBGetState(Button_TypeDef Button)
 /**
   * @}
   */
-
 /**
   * @brief  Configures COM port.
   * @param  COM: Specifies the COM port to be configured.
@@ -265,11 +300,11 @@ void STM_EVAL_COMInit(COM_TypeDef COM, USART_InitTypeDef* USART_InitStruct)
   /* Enable GPIO clock */
   RCC_AHB1PeriphClockCmd(COM_TX_PORT_CLK[COM] | COM_RX_PORT_CLK[COM], ENABLE);
 
-  if (COM == COM1)
-  {
+   /* Enable UART clock */
+  RCC_APB2PeriphClockCmd(COM_USART_CLK[COM], ENABLE);
+
     /* Enable UART clock */
-    RCC_APB1PeriphClockCmd(COM_USART_CLK[COM], ENABLE);
-  }
+  //RCC_APB1PeriphClockCmd(COM_USART_CLK[COM], ENABLE);
 
   /* Connect PXx to USARTx_Tx*/
   GPIO_PinAFConfig(COM_TX_PORT[COM], COM_TX_PIN_SOURCE[COM], COM_TX_AF[COM]);
@@ -298,6 +333,9 @@ void STM_EVAL_COMInit(COM_TypeDef COM, USART_InitTypeDef* USART_InitStruct)
   USART_Cmd(COM_USART[COM], ENABLE);
 }
 
+/**
+  * @}
+  */
 /**
   * @brief  DeInitializes the SDIO interface.
   * @param  None
@@ -478,12 +516,9 @@ void SD_LowLevel_DMA_RxConfig(uint32_t *BufferDST, uint32_t BufferSize)
   * @}
   */
 
-/**
-  * @}
-  */
 
 /**
   * @}
   */
 
-/******************* (C) COPYRIGHT 2011 STMicroelectronics *****END OF FILE****/
+/*********** Portions COPYRIGHT 2012 Embest Tech. Co., Ltd.*****END OF FILE****/

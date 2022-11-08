@@ -94,7 +94,6 @@ void USBD_USR_Init(void) {
 #ifdef DEBUG_MODE
 	xprintf(" USB OTG FS VCP Device \n");
 	xprintf("> USB device library started. \n");
-	xprintf("     USB Device Library V1.2.1 \n");
 #endif
 }
 

@@ -5,8 +5,10 @@
  *      Author: evgsam
  */
 
-#ifndef USER_INCLUDE_MAIN_H_
-#define USER_INCLUDE_MAIN_H_
+#ifndef MAIN_H_
+#define MAIN_H_
+
+#pragma once
 
 #include <stdbool.h>
 #include <string.h>
@@ -16,6 +18,9 @@
 #include <stm32f4_discovery.h>
 #include <stm32f4_discovery_debug.h>
 
+#include <stm32f4xx_rcc.h>
+#include <stm32f4xx_gpio.h>
+#include <stm32f4xx_adc.h>
 
 #include "usbd_cdc_core.h"
 #include "usbd_usr.h"
@@ -23,11 +28,43 @@
 #include "usbd_desc.h"
 #include "usbd_cdc_core_loopback.h"
 
+#include "FreeRTOS.h"
+#include "task.h"
+#include "queue.h"
+#include "semphr.h"
+#include "FreeRTOSConfig.h"
+#include "timers.h"
+
 #include "global_variables.h"
 
-volatile uint32_t ui32ticksDelay;
-volatile uint32_t ticks_delay;
+#define ui8ChanalSum 1
+#define ui16RecFreq 16000
+#define ui32RecBuffSize (ui16RecFreq/10)*ui8ChanalSum
 
-void sendHello(uint8_t *pbuf, uint32_t buf_len);
+extern __ALIGN_BEGIN USB_OTG_CORE_HANDLE USB_OTG_dev __ALIGN_END;
+
+typedef struct {
+	unsigned char ucVCPRxCommandBuf[30];
+	uint8_t ui8VCPRxCommandBuSize;
+} xVCPRxData;
+
+typedef struct {
+	uint8_t ui8LedToggleNumber;
+} xLEDToggle;
+
+void vTaskADCDataSend(void *pvParameters);
+
+//*************************************************************************************************
+//                      Хендлы FreeRTOS
+//*************************************************************************************************
+xQueueSetHandle xDMAData;
+xQueueSetHandle xVCPRxDataQueue;  //Хендл очереди данных, принимаемых по VCP
+xQueueSetHandle xLEDToggleQueue;  //Хендл очереди данных, принимаемых по VCP
+xSemaphoreHandle xLED3ToggleMutex;
+xSemaphoreHandle xLED4ToggleMutex;
+xSemaphoreHandle xLED5ToggleMutex;
+xSemaphoreHandle xLED6ToggleMutex;
+
+xSemaphoreHandle xADCSendDataMutex;
 
 #endif /* USER_INCLUDE_MAIN_H_ */

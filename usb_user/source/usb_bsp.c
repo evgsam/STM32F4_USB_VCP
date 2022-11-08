@@ -22,6 +22,7 @@
 
 /* Includes ------------------------------------------------------------------ */
 #include "usb_bsp.h"
+#include "FreeRTOSConfig.h"
 
 /** @addtogroup STM32_USB_OTG_DEVICE_LIBRARY
 * @{
@@ -308,7 +309,7 @@ void USB_OTG_BSP_Init(USB_OTG_CORE_HANDLE * pdev)
 void USB_OTG_BSP_EnableInterrupt(USB_OTG_CORE_HANDLE * pdev)
 {
   NVIC_InitTypeDef NVIC_InitStructure;
-
+ // NVIC_SetPriority(OTG_FS_IRQn,configMAX_SYSCALL_INTERRUPT_PRIORITY>>4);
   NVIC_PriorityGroupConfig(NVIC_PriorityGroup_1);
 #ifdef USE_USB_OTG_HS
   NVIC_InitStructure.NVIC_IRQChannel = OTG_HS_IRQn;

@@ -5,6 +5,8 @@
 #ifndef _STRFUNC
 #define _STRFUNC
 
+#pragma once
+
 #define _USE_XFUNC_OUT	1	/* 1: Use output functions */
 #define	_CR_CRLF		1	/* 1: Convert \n ==> \r\n in the output char */
 

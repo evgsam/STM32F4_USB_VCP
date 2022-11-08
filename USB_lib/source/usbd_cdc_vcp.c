@@ -80,10 +80,10 @@ static uint16_t VCP_DataRx(uint32_t Len)
 }
 
 /* send data function */
-void VCP_SendData(USB_OTG_CORE_HANDLE * pdev, uint8_t * pbuf, uint32_t buf_len)
+void VCP_SendData(USB_OTG_CORE_HANDLE * pdev, uint8_t * pbuf, uint32_t buf_len, uint8_t CDC_IN_EP_Number)
 {
   data_sent = 0;
-  DCD_EP_Tx(pdev, CDC_IN_EP, pbuf, buf_len);
+  DCD_EP_Tx(pdev, CDC_IN_EP_Number, pbuf, buf_len);
 }
 
 /* check data sent */
@@ -95,11 +95,10 @@ uint32_t VCP_CheckDataSent(void)
 }
 
 /* prepare data to be received */
-void VCP_ReceiveData(USB_OTG_CORE_HANDLE * pdev, uint8_t * pbuf,
-                     uint32_t buf_len)
+void VCP_ReceiveData(USB_OTG_CORE_HANDLE * pdev, uint8_t * pbuf, uint32_t buf_len, uint8_t CDC_OUT_EP_Number)
 {
   receive_flag = 0;
-  DCD_EP_PrepareRx(pdev, CDC_OUT_EP, pbuf, buf_len);
+  DCD_EP_PrepareRx(pdev, CDC_OUT_EP_Number, pbuf, buf_len);
 }
 
 /* check data received */

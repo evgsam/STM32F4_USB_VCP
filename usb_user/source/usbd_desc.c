@@ -88,6 +88,11 @@ USBD_DEVICE USR_desc = {
   USBD_USR_InterfaceStrDescriptor,
 };
 
+
+
+//====================================================================
+//                     Device Descriptor
+//====================================================================
 #ifdef USB_OTG_HS_INTERNAL_DMA_ENABLED
 #if defined ( __ICCARM__ )      /* !< IAR Compiler */
 #pragma data_alignment=4
@@ -95,25 +100,21 @@ USBD_DEVICE USR_desc = {
 #endif                          /* USB_OTG_HS_INTERNAL_DMA_ENABLED */
 /* USB Standard Device Descriptor */
 __ALIGN_BEGIN uint8_t USBD_DeviceDesc[USB_SIZ_DEVICE_DESC] __ALIGN_END = {
-  0x12,                         /* bLength */
-  USB_DEVICE_DESCRIPTOR_TYPE,   /* bDescriptorType */
-  0x00,                         /* bcdUSB */
-  0x02,
-  0x02,                         /* bDeviceClass */
-  0x02,                         /* bDeviceSubClass */
-  0x00,                         /* bDeviceProtocol */
-  USB_OTG_MAX_EP0_SIZE,         /* bMaxPacketSize */
-  LOBYTE(USBD_VID),             /* idVendor */
-  HIBYTE(USBD_VID),             /* idVendor */
-  LOBYTE(USBD_PID),             /* idVendor */
-  HIBYTE(USBD_PID),             /* idVendor */
-  0x00,                         /* bcdDevice rel. 2.00 */
-  0x02,
-  USBD_IDX_MFC_STR,             /* Index of manufacturer string */
-  USBD_IDX_PRODUCT_STR,         /* Index of product string */
-  USBD_IDX_SERIAL_STR,          /* Index of serial number string */
-  USBD_CFG_MAX_NUM              /* bNumConfigurations */
-};                              /* USB_DeviceDescriptor */
+  0x12,                         // bLength общая длина дескриптора устройства в байтах
+  USB_DEVICE_DESCRIPTOR_TYPE,   // bDescriptorType показывает, что это за дескриптор. В данном случае - Device descriptor
+  WBVAL(0x0200),                // bcdUSB какую версию стандарта USB поддерживает устройство. 2.0
+  0x02,                         // bDeviceClass
+  0x02,                         // bDeviceSubClass
+  0x00,                         // bDeviceProtocol
+  USB_OTG_MAX_EP0_SIZE,         // bMaxPacketSize0 максимальный размер пакетов для Endpoint 0 (при конфигурировании)
+  WBVAL(USBD_VID),				// idVendor
+  WBVAL(USBD_PID),				// idProduct
+  WBVAL(0x0200),                // bcdDevice rel. 2.00
+  USBD_IDX_MFC_STR,             // Index of manufacturer string
+  USBD_IDX_PRODUCT_STR,         // Index of product string
+  USBD_IDX_SERIAL_STR,          // Index of serial number string
+  USBD_CFG_MAX_NUM              // bNumConfigurations
+};                              // USB_DeviceDescriptor
 
 #ifdef USB_OTG_HS_INTERNAL_DMA_ENABLED
 #if defined ( __ICCARM__ )      /* !< IAR Compiler */

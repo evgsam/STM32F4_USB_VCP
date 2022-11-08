@@ -39,7 +39,7 @@
 /** @defgroup usbd_cdc_Exported_Defines
   * @{
   */ 
-#define USB_CDC_CONFIG_DESC_SIZ                (67)
+#define USB_CDC_CONFIG_DESC_SIZ                (141)
 #define USB_CDC_DESC_SIZ                       (67-9)
 
 #define DEVICE_CLASS_CDC                        0x02
