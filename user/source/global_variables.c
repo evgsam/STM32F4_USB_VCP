@@ -22,3 +22,16 @@ uint8_t vADCConvertedArray_1[ui32RecBuffSize];
 __IO uint32_t receive_count;
 __ALIGN_BEGIN USB_OTG_CORE_HANDLE USB_OTG_dev __ALIGN_END;
 
+//*************************************************************************************************
+//                      Хендлы FreeRTOS
+//*************************************************************************************************
+xQueueSetHandle xDMAData;
+xQueueSetHandle xVCPRxDataQueue;  //Хендл очереди данных, принимаемых по VCP
+xQueueSetHandle xLEDToggleQueue;  //Хендл очереди данных, принимаемых по VCP
+xSemaphoreHandle xLED3ToggleMutex;
+xSemaphoreHandle xLED4ToggleMutex;
+xSemaphoreHandle xLED5ToggleMutex;
+xSemaphoreHandle xLED6ToggleMutex;
+
+xSemaphoreHandle xADCSendDataMutex;
+

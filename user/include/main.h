@@ -57,14 +57,14 @@ void vTaskADCDataSend(void *pvParameters);
 //*************************************************************************************************
 //                      Хендлы FreeRTOS
 //*************************************************************************************************
-xQueueSetHandle xDMAData;
-xQueueSetHandle xVCPRxDataQueue;  //Хендл очереди данных, принимаемых по VCP
-xQueueSetHandle xLEDToggleQueue;  //Хендл очереди данных, принимаемых по VCP
-xSemaphoreHandle xLED3ToggleMutex;
-xSemaphoreHandle xLED4ToggleMutex;
-xSemaphoreHandle xLED5ToggleMutex;
-xSemaphoreHandle xLED6ToggleMutex;
+extern xQueueSetHandle xDMAData;
+extern xQueueSetHandle xVCPRxDataQueue;  //Хендл очереди данных, принимаемых по VCP
+extern xQueueSetHandle xLEDToggleQueue;  //Хендл очереди данных, принимаемых по VCP
+extern xSemaphoreHandle xLED3ToggleMutex;
+extern xSemaphoreHandle xLED4ToggleMutex;
+extern xSemaphoreHandle xLED5ToggleMutex;
+extern xSemaphoreHandle xLED6ToggleMutex;
 
-xSemaphoreHandle xADCSendDataMutex;
+extern xSemaphoreHandle xADCSendDataMutex;
 
 #endif /* USER_INCLUDE_MAIN_H_ */
