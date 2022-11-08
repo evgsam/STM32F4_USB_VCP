@@ -159,7 +159,7 @@ uint8_t USBD_StringSerial[USB_SIZ_STRING_SERIAL] = {
 #pragma data_alignment=4
 #endif
 #endif                          /* USB_OTG_HS_INTERNAL_DMA_ENABLED */
-__ALIGN_BEGIN uint8_t USBD_StrDesc[USB_MAX_STR_DESC_SIZ] __ALIGN_END;
+extern __ALIGN_BEGIN uint8_t USBD_StrDesc[USB_MAX_STR_DESC_SIZ] __ALIGN_END;
 
 /**
   * @}
