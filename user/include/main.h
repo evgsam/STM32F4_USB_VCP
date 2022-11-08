@@ -53,6 +53,7 @@ typedef struct {
 } xLEDToggle;
 
 void vTaskADCDataSend(void *pvParameters);
+void vPererheryInit(void);
 
 //*************************************************************************************************
 //                      Хендлы FreeRTOS

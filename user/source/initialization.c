@@ -28,10 +28,10 @@ void vPererheryInit(void) {
 	STM_EVAL_LEDInit(LED5);
 	STM_EVAL_LEDInit(LED6);
 	STM_EVAL_LEDInit(LED7);
-	pvrUSBDPlusPinReset();
-	USBD_Init(&USB_OTG_dev, USB_OTG_FS_CORE_ID, &USR_desc, &USBD_CDC_cb, &USR_cb);
-	pvrADCInit();
-	ADC_SoftwareStartConv(ADC2);
+	//pvrUSBDPlusPinReset();
+	//USBD_Init(&USB_OTG_dev, USB_OTG_FS_CORE_ID, &USR_desc, &USBD_CDC_cb, &USR_cb);
+	//pvrADCInit();
+	//ADC_SoftwareStartConv(ADC2);
 	pvrQueueSemaphoreCreated();
 }
 
