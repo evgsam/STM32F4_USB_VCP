@@ -1,5 +1,12 @@
 #include "main.h"
 
+extern xSemaphoreHandle xLED3ToggleMutex;
+extern xSemaphoreHandle xLED4ToggleMutex;
+extern xSemaphoreHandle xLED5ToggleMutex;
+extern xSemaphoreHandle xLED6ToggleMutex;
+extern xQueueSetHandle xVCPRxDataQueue;
+extern xSemaphoreHandle xADCSendDataMutex;
+
 void vTaskLED7Toggle(void *pvParameters) {
 	while (1) {
 		STM_EVAL_LEDToggle(LED7);

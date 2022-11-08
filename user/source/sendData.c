@@ -7,6 +7,9 @@
 
 #include <main.h>
 
+extern xQueueSetHandle xDMAData;
+extern xSemaphoreHandle xADCSendDataMutex;
+
 void vTaskADCDataSend(void *pvParameters) {
 	uint16_t* ui16RecBufferPoint;
 

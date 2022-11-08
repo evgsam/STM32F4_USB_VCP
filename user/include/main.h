@@ -58,7 +58,7 @@ void vPererheryInit(void);
 //*************************************************************************************************
 //                      Хендлы FreeRTOS
 //*************************************************************************************************
-extern xQueueSetHandle xDMAData;
+/*extern xQueueSetHandle xDMAData;
 extern xQueueSetHandle xVCPRxDataQueue;  //Хендл очереди данных, принимаемых по VCP
 extern xQueueSetHandle xLEDToggleQueue;  //Хендл очереди данных, принимаемых по VCP
 extern xSemaphoreHandle xLED3ToggleMutex;
@@ -68,4 +68,5 @@ extern xSemaphoreHandle xLED6ToggleMutex;
 
 extern xSemaphoreHandle xADCSendDataMutex;
 
+*/
 #endif /* USER_INCLUDE_MAIN_H_ */
