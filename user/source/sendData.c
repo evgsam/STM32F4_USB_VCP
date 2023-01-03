@@ -6,6 +6,7 @@
  */
 
 #include <main.h>
+#include "usbd_cdc_vcp.h"
 
 extern xQueueSetHandle xDMAData;
 extern xSemaphoreHandle xADCSendDataMutex;
