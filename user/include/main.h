@@ -52,6 +52,12 @@ typedef struct {
 	uint8_t ui8LedToggleNumber;
 } xLEDToggle;
 
+//*************************************************************************************************
+//						function declaration
+//*************************************************************************************************
+void vTaskLEDToggle(void *pvParameters);
+void vTaskVCPRxCommandParser(void *pvParameters);
+void vTaskVCPRxCommandHandler(void *pvParameters);
 void vTaskADCDataSend(void *pvParameters);
 void vPererheryInit(void);
 

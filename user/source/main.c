@@ -7,12 +7,6 @@ extern xSemaphoreHandle xLED6ToggleMutex;
 extern xQueueSetHandle xVCPRxDataQueue;
 extern xSemaphoreHandle xADCSendDataMutex;
 
-void vTaskLED7Toggle(void *pvParameters) {
-	while (1) {
-		STM_EVAL_LEDToggle(LED7);
-		vTaskDelay(500 / portTICK_RATE_MS);
-	}
-}
 
 void vTaskLEDToggle(void *pvParameters) {
 	uint8_t ui8LEDNumber;
@@ -192,7 +186,6 @@ int main(void) {
 	xTaskCreate(vTaskLEDToggle, "vTaskLEDToggle4", 100, LED4, 0, NULL);
 	xTaskCreate(vTaskLEDToggle, "vTaskLEDToggle5", 100, LED5, 0, NULL);
 	xTaskCreate(vTaskLEDToggle, "vTaskLEDToggle6", 100, LED6, 0, NULL);
-	xTaskCreate(vTaskLED7Toggle, "vTaskLEDToggle7", 100, NULL, 0, NULL);
 
 	vTaskStartScheduler();
 
