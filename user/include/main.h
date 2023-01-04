@@ -35,7 +35,7 @@
 #include "FreeRTOSConfig.h"
 #include "timers.h"
 
-#include "global_variables.h"
+#include <globalVariables.h>
 
 #define ui8ChanalSum 1
 #define ui16RecFreq 16000
