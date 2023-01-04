@@ -8,7 +8,6 @@
 #ifndef USER_INCLUDE_INITIALIZATION_H_
 #define USER_INCLUDE_INITIALIZATION_H_
 
-void pvrQueueSemaphoreCreated(void);
 void pvrUSBDPlusPinReset(void);
 void pvrADCInit(void);
 

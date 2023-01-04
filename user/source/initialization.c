@@ -16,14 +16,6 @@
 #include "globalVariables.h"
 #include "initialization.h"
 
-extern xSemaphoreHandle xLED3ToggleMutex;
-extern xSemaphoreHandle xLED4ToggleMutex;
-extern xSemaphoreHandle xLED5ToggleMutex;
-extern xSemaphoreHandle xLED6ToggleMutex;
-extern xQueueSetHandle xDMAData;
-extern xQueueSetHandle xVCPRxDataQueue;
-
-extern xSemaphoreHandle xADCSendDataMutex;
 
 extern uint8_t vADCConvertedArray_0[ui32RecBuffSize];
 extern uint8_t vADCConvertedArray_1[ui32RecBuffSize];
@@ -42,7 +34,7 @@ void vPererheryInit(void) {
 	USBD_Init(&USB_OTG_dev, USB_OTG_FS_CORE_ID, &USR_desc, &USBD_CDC_cb, &USR_cb);
 	pvrADCInit();
 	ADC_SoftwareStartConv(ADC2);
-	pvrQueueSemaphoreCreated();
+	vQueueSemaphoreCreated();
 }
 
 void pvrADCInit(void) {
@@ -194,26 +186,6 @@ void pvrADCInit(void) {
 	//****************************************************************************/
 	NVIC_EnableIRQ(DMA2_Stream3_IRQn);
 	DMA_Cmd(DMA2_Stream3, ENABLE);
-}
-
-//****************************************************************************/
-//		FreeRTOS semaphore creator
-//****************************************************************************/
-void pvrQueueSemaphoreCreated(void) {
-	xDMAData = xQueueCreate(2, 4);
-	xVCPRxDataQueue = xQueueCreate(10, sizeof(xVCPRxData));
-
-	xADCSendDataMutex = xSemaphoreCreateMutex();
-	xSemaphoreTake(xADCSendDataMutex, portMAX_DELAY);
-
-	xLED3ToggleMutex = xSemaphoreCreateMutex();
-	xLED4ToggleMutex = xSemaphoreCreateMutex();
-	xLED5ToggleMutex = xSemaphoreCreateMutex();
-	xLED6ToggleMutex = xSemaphoreCreateMutex();
-	xSemaphoreTake(xLED3ToggleMutex, portMAX_DELAY);
-	xSemaphoreTake(xLED4ToggleMutex, portMAX_DELAY);
-	xSemaphoreTake(xLED5ToggleMutex, portMAX_DELAY);
-	xSemaphoreTake(xLED6ToggleMutex, portMAX_DELAY);
 }
 
 void pvrUSBDPlusPinReset(void) {
