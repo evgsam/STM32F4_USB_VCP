@@ -13,7 +13,8 @@
 #include <stm32f4xx_exti.h>
 #include <stm32f4xx_tim.h>
 
-#include "global_variables.h"
+#include "globalVariables.h"
+#include "initialization.h"
 
 extern xSemaphoreHandle xLED3ToggleMutex;
 extern xSemaphoreHandle xLED4ToggleMutex;
