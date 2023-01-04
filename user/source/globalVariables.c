@@ -17,10 +17,6 @@ uint16_t vADCConvertedArray_1[ui32RecBuffSize];
 #else
 uint8_t vADCConvertedArray_0[ui32RecBuffSize];
 uint8_t vADCConvertedArray_1[ui32RecBuffSize];
-
-uint8_t vADCConvertedArray_3[ui32RecBuffSize];
-uint8_t vADCConvertedArray_4[ui32RecBuffSize];
-
 #endif
 
 __IO uint32_t receive_count;
