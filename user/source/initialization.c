@@ -15,6 +15,7 @@
 
 #include "globalVariables.h"
 #include "initialization.h"
+#include "queueAndSemaphore.h"
 
 
 extern uint8_t vADCConvertedArray_0[ui32RecBuffSize];
