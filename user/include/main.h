@@ -55,9 +55,6 @@ typedef struct {
 //*************************************************************************************************
 //						function declaration
 //*************************************************************************************************
-void vTaskLEDToggle(void *pvParameters);
-void vTaskVCPRxCommandParser(void *pvParameters);
-void vTaskVCPRxCommandHandler(void *pvParameters);
 void vTaskADCDataSend(void *pvParameters);
 void vPererheryInit(void);
 
