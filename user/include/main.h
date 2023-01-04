@@ -58,18 +58,4 @@ typedef struct {
 void vTaskADCDataSend(void *pvParameters);
 void vPererheryInit(void);
 
-//*************************************************************************************************
-//                      Хендлы FreeRTOS
-//*************************************************************************************************
-/*extern xQueueSetHandle xDMAData;
-extern xQueueSetHandle xVCPRxDataQueue;  //Хендл очереди данных, принимаемых по VCP
-extern xQueueSetHandle xLEDToggleQueue;  //Хендл очереди данных, принимаемых по VCP
-extern xSemaphoreHandle xLED3ToggleMutex;
-extern xSemaphoreHandle xLED4ToggleMutex;
-extern xSemaphoreHandle xLED5ToggleMutex;
-extern xSemaphoreHandle xLED6ToggleMutex;
-
-extern xSemaphoreHandle xADCSendDataMutex;
-
-*/
 #endif /* USER_INCLUDE_MAIN_H_ */
