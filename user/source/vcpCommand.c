@@ -21,6 +21,8 @@ void vTaskVCPRxCommandParser(void *pvParameters) {
 #define ADC_SEND_DATA_START "11"
 #define ADC_SEND_DATA_STOP "12"
 
+#define HANDESHAKE "121"
+
 #define LED3_ON "31"
 #define LED3_OFF "32"
 #define LED3_TOGGLE "33"
@@ -49,6 +51,9 @@ void vTaskVCPRxCommandParser(void *pvParameters) {
 			if (strcmp(pTaskVCPRxData.ucVCPRxCommandBuf, ADC_SEND_DATA_STOP) == 0) {
 				xSemaphoreTake(xADCSendDataMutex, 100);
 				STM_EVAL_LEDOff(LED4);
+			}
+			if (strcmp(pTaskVCPRxData.ucVCPRxCommandBuf, HANDESHAKE) == 0) {
+				STM_EVAL_LEDOn(LED3);
 			}
 			if (strcmp(pTaskVCPRxData.ucVCPRxCommandBuf, LED3_ON) == 0) {
 				STM_EVAL_LEDOn(LED3);
