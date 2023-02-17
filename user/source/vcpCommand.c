@@ -55,7 +55,7 @@ void vTaskVCPRxCommandParser(void *pvParameters) {
 				STM_EVAL_LEDOff(LED4);
 			}
 			if (strcmp(pTaskVCPRxData.ucVCPRxCommandBuf, HANDESHAKE) == 0) {
-				STM_EVAL_LEDOn(LED3);
+				xQueueSendToBackFromISR(xServiceData, "settings_port_OK", 0);
 			}
 			if (strcmp(pTaskVCPRxData.ucVCPRxCommandBuf, LED3_ON) == 0) {
 				STM_EVAL_LEDOn(LED3);

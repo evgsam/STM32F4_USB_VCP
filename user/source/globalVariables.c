@@ -25,7 +25,8 @@ __ALIGN_BEGIN USB_OTG_CORE_HANDLE USB_OTG_dev __ALIGN_END;
 //*************************************************************************************************
 //                      Хендлы FreeRTOS
 //*************************************************************************************************
-xQueueSetHandle xDMAData;
+xQueueSetHandle xADCData;
+xQueueSetHandle xServiceData;
 xQueueSetHandle xVCPRxDataQueue;  //Хендл очереди данных, принимаемых по VCP
 xQueueSetHandle xLEDToggleQueue;  //Хендл очереди данных, принимаемых по VCP
 xSemaphoreHandle xLED3ToggleMutex;

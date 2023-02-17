@@ -41,7 +41,7 @@ void vTaskADCDataSend(void *pvParameters) {
 	uint8_t vVCPSendBuffer[ui32RecBuffSize];
 #endif
 	while (1) {
-		if (xQueueReceive(xDMAData, &ui16RecBufferPoint, portMAX_DELAY) == pdPASS) {
+		if (xQueueReceive(xADCData, &ui16RecBufferPoint, portMAX_DELAY) == pdPASS) {
 			if (xSemaphoreTake(xADCSendDataMutex, portMAX_DELAY) == pdTRUE) {
 				STM_EVAL_LEDToggle(LED4);
 				memset(vVCPSendBuffer, 0, sizeof(vVCPSendBuffer));

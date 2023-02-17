@@ -9,7 +9,7 @@
 extern uint8_t vADCConvertedArray_0[ui32RecBuffSize];
 extern uint8_t vADCConvertedArray_1[ui32RecBuffSize];
 
-extern xQueueSetHandle xDMAData;
+extern xQueueSetHandle xADCData;
 
 void DMA2_Stream3_IRQHandler(void) {
 	uint8_t* ui16RecBufferPoint;
@@ -20,7 +20,7 @@ void DMA2_Stream3_IRQHandler(void) {
 		} else {
 			ui16RecBufferPoint = vADCConvertedArray_0;
 		}
-		xQueueSendToBackFromISR(xDMAData, &ui16RecBufferPoint, 0);
+		xQueueSendToBackFromISR(xADCData, &ui16RecBufferPoint, 0);
 	}
 }
 

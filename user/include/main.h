@@ -40,6 +40,7 @@
 #define ui8ChanalSum 1
 #define ui16RecFreq 16000
 #define ui32RecBuffSize (ui16RecFreq/10)*ui8ChanalSum
+#define ui8ServiceBuffSize 50
 
 extern __ALIGN_BEGIN USB_OTG_CORE_HANDLE USB_OTG_dev __ALIGN_END;
 
