@@ -56,6 +56,8 @@ typedef struct {
 //						function declaration
 //*************************************************************************************************
 void vTaskADCDataSend(void *pvParameters);
+void vTaskServiceDataSend(void *pvParameters);
+
 void vPererheryInit(void);
 
 #endif /* USER_INCLUDE_MAIN_H_ */

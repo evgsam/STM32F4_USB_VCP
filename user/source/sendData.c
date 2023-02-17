@@ -11,6 +11,26 @@
 extern xQueueSetHandle xDMAData;
 extern xSemaphoreHandle xADCSendDataMutex;
 
+void vTaskServiceDataSend(void *pvParameters) {
+	uint16_t ui16ServiceData;
+
+#ifdef USE_12_BIT_ADC
+	uint16_t vVCPSendBuffer[ui32RecBuffSize];
+#else
+	uint8_t vVCPSendBuffer[ui8ServiceBuffSize];
+#endif
+	while (1) {
+		if (xQueueReceive(xServiceData, &ui16ServiceData, portMAX_DELAY) == pdPASS) {
+				STM_EVAL_LEDToggle(LED6);
+				//memset(vVCPSendBuffer, 0, sizeof(vVCPSendBuffer));
+				//memcpy(vVCPSendBuffer, ui16ServiceData, sizeof(vVCPSendBuffer));
+				VCP_SendData(&USB_OTG_dev, "hello", sizeof("hello"), CDC_IN_EP3);
+		}
+	}
+	vTaskDelete(NULL);
+}
+
+
 void vTaskADCDataSend(void *pvParameters) {
 	uint16_t *ui16RecBufferPoint;
 
