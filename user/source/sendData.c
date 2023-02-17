@@ -8,7 +8,8 @@
 #include <main.h>
 #include "usbd_cdc_vcp.h"
 
-extern xQueueSetHandle xDMAData;
+extern xQueueSetHandle xADCData;
+extern xQueueSetHandle xServiceData;
 extern xSemaphoreHandle xADCSendDataMutex;
 
 void vTaskServiceDataSend(void *pvParameters) {

@@ -10,7 +10,8 @@ extern xSemaphoreHandle xLED3ToggleMutex;
 extern xSemaphoreHandle xLED4ToggleMutex;
 extern xSemaphoreHandle xLED5ToggleMutex;
 extern xSemaphoreHandle xLED6ToggleMutex;
-extern xQueueSetHandle xDMAData;
+extern xQueueSetHandle xADCData;
+extern xQueueSetHandle xServiceData;
 extern xQueueSetHandle xVCPRxDataQueue;
 
 extern xSemaphoreHandle xADCSendDataMutex;
@@ -19,7 +20,8 @@ extern xSemaphoreHandle xADCSendDataMutex;
 //		FreeRTOS semaphore creator
 //****************************************************************************/
 void vQueueSemaphoreCreated(void) {
-	xDMAData = xQueueCreate(2, 4);
+	xADCData = xQueueCreate(2, 4);
+	xServiceData = xQueueCreate(2, 4);
 	xVCPRxDataQueue = xQueueCreate(10, sizeof(xVCPRxData));
 
 	xADCSendDataMutex = xSemaphoreCreateMutex();

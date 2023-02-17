@@ -15,13 +15,15 @@ extern xSemaphoreHandle xLED6ToggleMutex;
 extern xQueueSetHandle xVCPRxDataQueue;
 extern xSemaphoreHandle xADCSendDataMutex;
 
+extern xQueueSetHandle xServiceData;
+
 void vTaskVCPRxCommandParser(void *pvParameters) {
 	xVCPRxData pTaskVCPRxData;
 
 #define ADC_SEND_DATA_START "11"
 #define ADC_SEND_DATA_STOP "12"
 
-#define HANDESHAKE "121"
+#define HANDESHAKE "set_port"
 
 #define LED3_ON "31"
 #define LED3_OFF "32"
